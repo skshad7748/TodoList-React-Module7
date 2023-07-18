@@ -1,4 +1,9 @@
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { Container } from 'react-bootstrap';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const TaskList = () => {
   // Step 1: Set up the state to store the tasks
@@ -31,26 +36,36 @@ const TaskList = () => {
   };
 
   return (
-    <div>
-      <h1>Task List</h1>
+    <div style={{background:'skyblue'}}>
+     <Container>
+     <Row className="justify-content-md-center">
+     <Col md="auto">
+      <h1 style={{textAlign:'center'}}>Task List</h1>
+
+
       <form onSubmit={handleTaskSubmit}>
         <input
+        style={{border:'2px solid yellow',textAlign:'center'}}
           type="text"
           value={newTask}
           onChange={handleInputChange}
           placeholder="Enter a new task"
-        />
-        <button type="submit">Add Task</button>
+        /> <br/> <br/>
+        <Button type="submit" variant="outline-success" size="lg">Add Task</Button>
       </form>
-      <ul>
+        </Col>
+      </Row>
+      <ListGroup as="ol" numbered>
         {tasks.map((task, index) => (
-          <li key={index}>
-            {task}
-            <button onClick={() => handleTaskDelete(index)}>Delete</button>
-          </li>
+
+            <ListGroup.Item as="li" key={index}>
+            <h4>{task}</h4>
+            <Button onClick={() => handleTaskDelete(index)} variant="outline-warning" size='lg'>Delete</Button>
+            </ListGroup.Item>
          
         ))}
-      </ul>
+      </ListGroup>
+      </Container>
     </div>
   );
 };
